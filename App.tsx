@@ -50,12 +50,41 @@ function PlayerScreen({ navigation }: any){
 
 function GameScreen({ navigation, route} : any){
   const { player1, player2 } = route.params; 
-  const [player1Turn, setPlayer1Turn] = useState<boolean>(true); 
-  // initially set to be Player 1 who plays first, always.
+  const [player1Turn, setPlayer1Turn] = useState<boolean>(true);
+
+  // Each block holds one of three values:
+  // 0 - not yet played | 1 - Player 1 played here | 2 - Player 2 played here
+  const [block1, setBlock1] = useState<number>(0);
+  const [block2, setBlock2] = useState<number>(0);
+  const [block3, setBlock3] = useState<number>(0);
+  const [block4, setBlock4] = useState<number>(0);
+  const [block5, setBlock5] = useState<number>(0);
+  const [block6, setBlock6] = useState<number>(0);
+  const [block7, setBlock7] = useState<number>(0);
+  const [block8, setBlock8] = useState<number>(0);
+  const [block9, setBlock9] = useState<number>(0);
+
+  // Decide what block1's tile should display, based on its current value
+  let block1Content: string;
+  if (block1 === 0) {
+    block1Content = '';
+  } else if (block1 === 1) {
+    block1Content = 'X';
+  } else {
+    block1Content = 'O';
+  }
+
+  // This above block of statements (declaration and nested if..then) will need to be
+  // duplicated for the 8 remaining blocks
 
   const handlePress = (index: number) => {
-    console.log(`Cell ${index} pressed`); 
-    setPlayer1Turn(!player1Turn); // changes the player's turn to the next person
+    console.log(`Cell ${index} pressed`);
+    if (player1Turn){
+      setBlock1(1); 
+    } else {
+      setBlock1(2);
+    }
+    setPlayer1Turn(!player1Turn);
   };
 
   return(
@@ -66,10 +95,12 @@ function GameScreen({ navigation, route} : any){
         {player1Turn ? `${player1}'s Turn` : `${player2}'s Turn`}
       </Text>
 
-      {/* Board layout: 3 rows of 3 cells, each an empty tile for now */}
+      {/* Board layout: 3 rows of 3 cells
+          Note the very first Touchable and its Text component 
+      */}
       <View style={styles.row}>
         <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
-          <Text style={styles.cellText}></Text>
+          <Text style={styles.cellText}>{block1Content}</Text>
         </TouchableHighlight>
         <TouchableHighlight style={styles.cell} onPress={() => handlePress(1)}>
           <Text style={styles.cellText}></Text>

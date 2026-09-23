@@ -65,143 +65,19 @@ function GameScreen({ navigation, route} : any){
   const [block9, setBlock9] = useState<number>(0);
 
   // Decide what block's tile should display, based on its current value
-  let block1Content: string;
-  switch (block1) {
-    case 0:
-      block1Content = '';
-      break;
-    case 1:
-      block1Content = 'X';
-      break;
-    case 2:
-      block1Content = 'O';
-      break;
-    default:
-      block1Content = '';
-  }
-
-  let block2Content: string;
-  switch (block2) {
-    case 0:
-      block2Content = '';
-      break;
-    case 1:
-      block2Content = 'X';
-      break;
-    case 2:
-      block2Content = 'O';
-      break;
-    default:
-      block2Content = '';
-  }
-
-  let block3Content: string;
-  switch (block3) {
-    case 0:
-      block3Content = '';
-      break;
-    case 1:
-      block3Content = 'X';
-      break;
-    case 2:
-      block3Content = 'O';
-      break;
-    default:
-      block3Content = '';
-  }
-
-  let block4Content: string;
-  switch (block4) {
-    case 0:
-      block4Content = '';
-      break;
-    case 1:
-      block4Content = 'X';
-      break;
-    case 2:
-      block4Content = 'O';
-      break;
-    default:
-      block4Content = '';
-  }
-
-  let block5Content: string;
-  switch (block5) {
-    case 0:
-      block5Content = '';
-      break;
-    case 1:
-      block5Content = 'X';
-      break;
-    case 2:
-      block5Content = 'O';
-      break;
-    default:
-      block5Content = '';
-  }
-
-  let block6Content: string;
-  switch (block6) {
-    case 0:
-      block6Content = '';
-      break;
-    case 1:
-      block6Content = 'X';
-      break;
-    case 2:
-      block6Content = 'O';
-      break;
-    default:
-      block6Content = '';
-  }
-
-  let block7Content: string;
-  switch (block7) {
-    case 0:
-      block7Content = '';
-      break;
-    case 1:
-      block7Content = 'X';
-      break;
-    case 2:
-      block7Content = 'O';
-      break;
-    default:
-      block7Content = '';
-  }
-
-  let block8Content: string;
-  switch (block8) {
-    case 0:
-      block8Content = '';
-      break;
-    case 1:
-      block8Content = 'X';
-      break;
-    case 2:
-      block8Content = 'O';
-      break;
-    default:
-      block8Content = '';
-  }
-
-  let block9Content: string;
-  switch (block9) {
-    case 0:
-      block9Content = '';
-      break;
-    case 1:
-      block9Content = 'X';
-      break;
-    case 2:
-      block9Content = 'O';
-      break;
-    default:
-      block9Content = '';
-  }
+  const contentFor = (block: number): string => {
+    switch (block) {
+      case 1:
+        return 'X';
+      case 2:
+        return 'O';
+      default:
+        return '';
+    }
+  };
 
    // Checks all 8 possible winning lines: 3 rows, 3 columns, 2 diagonals
-  let winner: number = 0; // which player wins ? 1 or 2
+  let winner: number = 0;
   if (block1 > 0 && block1 === block2 && block2 === block3) winner = block1;
   if (block4 > 0 && block4 === block5 && block5 === block6) winner = block4;
   if (block7 > 0 && block7 === block8 && block8 === block9) winner = block7;
@@ -212,6 +88,11 @@ function GameScreen({ navigation, route} : any){
   if (block3 > 0 && block3 === block5 && block5 === block7) winner = block3;
 
   const handlePress = (index: number) => {
+    if (winner !== 0) return; // stop game after winner is chosen
+
+    // how do we stop the user from pressing the same button twice? 
+
+    // still need to refactor the below statements
     if (index === 0) {
       player1Turn ? setBlock1(1) : setBlock1(2);
     }
@@ -263,43 +144,39 @@ function GameScreen({ navigation, route} : any){
       <View>
         <View style={styles.row}>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
-            <Text style={styles.cellText}>{block1Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block1)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(1)}>
-            <Text style={styles.cellText}>{block2Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block2)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(2)}>
-            <Text style={styles.cellText}>{block3Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block3)}</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.row}>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(3)}>
-            <Text style={styles.cellText}>{block4Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block4)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(4)}>
-            <Text style={styles.cellText}>{block5Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block5)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(5)}>
-            <Text style={styles.cellText}>{block6Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block6)}</Text>
           </TouchableHighlight>
         </View>
         <View style={styles.row}>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(6)}>
-            <Text style={styles.cellText}>{block7Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block7)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(7)}>
-            <Text style={styles.cellText}>{block8Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block8)}</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.cell} onPress={() => handlePress(8)}>
-            <Text style={styles.cellText}>{block9Content}</Text>
+            <Text style={styles.cellText}>{contentFor(block9)}</Text>
           </TouchableHighlight>
         </View>
       </View>
 
-      {/* A conditional statement that will display the respective winner's name 
-      	  based on the value of winner. Note that there are 2 separate <Text> 
-          components being coded
-      */}      
       {winner === 1 && <Text style={styles.title}>{player1} Wins!</Text>}
       {winner === 2 && <Text style={styles.title}>{player2} Wins!</Text>}
     </View>

@@ -202,11 +202,53 @@ function GameScreen({ navigation, route} : any){
 
   const handlePress = (index: number) => {
     console.log(`Cell ${index} pressed`);
-    if (player1Turn){
-      setBlock1(1); 
-    } else {
-      setBlock1(2);
+
+    /*
+    if (index === 0) {
+      if (player1Turn){
+        setBlock1(1); 
+      } else {
+        setBlock1(2);
+      }
     }
+    */
+
+    if (index === 0) {
+      player1Turn ? setBlock1(1) : setBlock1(2);
+    }
+
+    if (index === 1) {
+      player1Turn ? setBlock2(1) : setBlock2(2);
+    }
+
+    if (index === 2) {
+      player1Turn ? setBlock3(1) : setBlock3(2);
+    }
+
+    if (index === 3) {
+      player1Turn ? setBlock4(1) : setBlock4(2);
+    }
+
+    if (index === 4) {
+      player1Turn ? setBlock5(1) : setBlock5(2);
+    }
+    
+    if (index === 5) {
+      player1Turn ? setBlock6(1) : setBlock6(2);
+    }
+
+    if (index === 6) {
+      player1Turn ? setBlock7(1) : setBlock7(2);
+    }
+
+    if (index === 7) {
+      player1Turn ? setBlock8(1) : setBlock8(2);
+    }
+    
+    if (index === 8) {
+      player1Turn ? setBlock9(1) : setBlock9(2);
+    }
+
     setPlayer1Turn(!player1Turn);
   };
 
@@ -218,7 +260,7 @@ function GameScreen({ navigation, route} : any){
         {player1Turn ? `${player1}'s Turn` : `${player2}'s Turn`}
       </Text>
 
-      {/* Board layout: 3 rows of 3 cells - Note the <Text> component values */}
+      {/* Board layout: 3 rows of 3 cells */}
       <View style={styles.row}>
         <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
           <Text style={styles.cellText}>{block1Content}</Text>

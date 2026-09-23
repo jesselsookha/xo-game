@@ -50,41 +50,53 @@ function PlayerScreen({ navigation }: any){
 
 function GameScreen({ navigation, route} : any){
   const { player1, player2 } = route.params; 
+  const [player1Turn, setPlayer1Turn] = useState<boolean>(true); 
+  // initially set to be Player 1 who plays first, always.
+
+  const handlePress = (index: number) => {
+    console.log(`Cell ${index} pressed`); 
+    setPlayer1Turn(!player1Turn); // changes the player's turn to the next person
+  };
+
   return(
     <View style={styles.container}>
       <Text style={styles.title}>{player1} vs. {player2}</Text>
 
+      <Text>
+        {player1Turn ? `${player1}'s Turn` : `${player2}'s Turn`}
+      </Text>
+
       {/* Board layout: 3 rows of 3 cells, each an empty tile for now */}
       <View style={styles.row}>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(1)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
-          <Text style={styles.cellText}></Text>
-        </TouchableHighlight>
-      </View>
-      <View style={styles.row}>
-        <TouchableHighlight style={styles.cell}>
-          <Text style={styles.cellText}></Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
-          <Text style={styles.cellText}></Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(2)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
       </View>
       <View style={styles.row}>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(3)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(4)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
-        <TouchableHighlight style={styles.cell}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(5)}>
+          <Text style={styles.cellText}></Text>
+        </TouchableHighlight>
+      </View>
+      <View style={styles.row}>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(6)}>
+          <Text style={styles.cellText}></Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(7)}>
+          <Text style={styles.cellText}></Text>
+        </TouchableHighlight>
+        <TouchableHighlight style={styles.cell} onPress={() => handlePress(8)}>
           <Text style={styles.cellText}></Text>
         </TouchableHighlight>
       </View>

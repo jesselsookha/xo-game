@@ -200,19 +200,18 @@ function GameScreen({ navigation, route} : any){
       block9Content = '';
   }
 
+   // Checks all 8 possible winning lines: 3 rows, 3 columns, 2 diagonals
+  let winner: number = 0; // which player wins ? 1 or 2
+  if (block1 > 0 && block1 === block2 && block2 === block3) winner = block1;
+  if (block4 > 0 && block4 === block5 && block5 === block6) winner = block4;
+  if (block7 > 0 && block7 === block8 && block8 === block9) winner = block7;
+  if (block1 > 0 && block1 === block4 && block4 === block7) winner = block1;
+  if (block2 > 0 && block2 === block5 && block5 === block8) winner = block2;
+  if (block3 > 0 && block3 === block6 && block6 === block9) winner = block3;
+  if (block1 > 0 && block1 === block5 && block5 === block9) winner = block1;
+  if (block3 > 0 && block3 === block5 && block5 === block7) winner = block3;
+
   const handlePress = (index: number) => {
-    console.log(`Cell ${index} pressed`);
-
-    /*
-    if (index === 0) {
-      if (player1Turn){
-        setBlock1(1); 
-      } else {
-        setBlock1(2);
-      }
-    }
-    */
-
     if (index === 0) {
       player1Turn ? setBlock1(1) : setBlock1(2);
     }
@@ -261,39 +260,48 @@ function GameScreen({ navigation, route} : any){
       </Text>
 
       {/* Board layout: 3 rows of 3 cells */}
-      <View style={styles.row}>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
-          <Text style={styles.cellText}>{block1Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(1)}>
-          <Text style={styles.cellText}>{block2Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(2)}>
-          <Text style={styles.cellText}>{block3Content}</Text>
-        </TouchableHighlight>
+      <View>
+        <View style={styles.row}>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(0)}>
+            <Text style={styles.cellText}>{block1Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(1)}>
+            <Text style={styles.cellText}>{block2Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(2)}>
+            <Text style={styles.cellText}>{block3Content}</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.row}>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(3)}>
+            <Text style={styles.cellText}>{block4Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(4)}>
+            <Text style={styles.cellText}>{block5Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(5)}>
+            <Text style={styles.cellText}>{block6Content}</Text>
+          </TouchableHighlight>
+        </View>
+        <View style={styles.row}>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(6)}>
+            <Text style={styles.cellText}>{block7Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(7)}>
+            <Text style={styles.cellText}>{block8Content}</Text>
+          </TouchableHighlight>
+          <TouchableHighlight style={styles.cell} onPress={() => handlePress(8)}>
+            <Text style={styles.cellText}>{block9Content}</Text>
+          </TouchableHighlight>
+        </View>
       </View>
-      <View style={styles.row}>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(3)}>
-          <Text style={styles.cellText}>{block4Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(4)}>
-          <Text style={styles.cellText}>{block5Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(5)}>
-          <Text style={styles.cellText}>{block6Content}</Text>
-        </TouchableHighlight>
-      </View>
-      <View style={styles.row}>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(6)}>
-          <Text style={styles.cellText}>{block7Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(7)}>
-          <Text style={styles.cellText}>{block8Content}</Text>
-        </TouchableHighlight>
-        <TouchableHighlight style={styles.cell} onPress={() => handlePress(8)}>
-          <Text style={styles.cellText}>{block9Content}</Text>
-        </TouchableHighlight>
-      </View>
+
+      {/* A conditional statement that will display the respective winner's name 
+      	  based on the value of winner. Note that there are 2 separate <Text> 
+          components being coded
+      */}      
+      {winner === 1 && <Text style={styles.title}>{player1} Wins!</Text>}
+      {winner === 2 && <Text style={styles.title}>{player2} Wins!</Text>}
     </View>
   );
 }
